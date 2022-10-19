@@ -26,7 +26,7 @@ public class Adventure {
 
         GAME://label
         while(running) {
-            System.out.println("---------------------------------------------------");
+            System.out.println("\n---------------------------------------------------");
 
             int enemyHealth = rand.nextInt(health);//Maximum value that the integer can be
 
@@ -48,7 +48,7 @@ public class Adventure {
                         enemyHealth -= damageDealt;
                         health -= damageTaken;
 
-                    System.out.printf("\t Your strike the %s for %d damage!%n\t You receive %d damage in retaliation!", enemy, damageDealt, damageTaken);
+                    System.out.printf("\t Your strike the %s for %d damage!%n\t You receive %d damage in retaliation!%n", enemy, damageDealt, damageTaken);
 
                     if (health < 1){
                         System.out.println("\t You have taken too much damage!, You are too weak to go on");
@@ -64,17 +64,52 @@ public class Adventure {
                     }
 
                 } else if (usersInput.equals("3") || usersInput.equalsIgnoreCase("Run Away")){
+                    System.out.printf("\tYou run away from the %s!%n", enemy);
+                    continue GAME;//break out of the battle and continue with the game loop
 
                 } else {
-
+                    System.out.println("\t Invalid Command");
                 }
 
 
             }
+            if (health < 1){
+                System.out.println("You have fallen");
+                break;
+            }
 
+            System.out.println("\n---------------------------------------------------");
 
+            System.out.printf("# %s Was defeated! #%n", enemy);
+            System.out.printf("# You have %d health remaining.%n", health);
 
-        }
+            if(rand.nextInt(100) < healthPotionDropChance){
+                numHealthPotions++;
+                System.out.printf("\t %s dropped a potion!%n\t You now have [%d] potions", enemy, numHealthPotions);
+            }
+            System.out.println("\n---------------------------------------------------");
+            System.out.println("What would you like to do?");
+            System.out.println("1. Continue Fighting!");
+            System.out.println("2. Exit The Dungeon");
 
-    }
-}
+            String input = in.nextLine();
+
+            while(!input.equals("1") && !input.equals("2")){
+                System.out.println("Invalid Command");
+                input = in.nextLine();
+            }
+
+            if(input.equals("1")){
+                System.out.println("You continue your adventure");
+            } else if (input.equals("2")){
+                System.out.println("You climb out of the Dungeon successful from your adventure");
+                break;
+            }
+
+        }//End Game
+
+        System.out.println("#######################");
+        System.out.println("# THANKS FOR PLAYING! #");
+
+    }//End Main
+}//End Class
